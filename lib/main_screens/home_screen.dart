@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:intl/intl.dart';
 import 'package:krushak/cards/nearby_trainings.dart';
 import 'package:krushak/cards/videos.dart';
+import 'package:krushak/cards/weather.dart';
 import 'package:krushak/data/data.dart';
 import 'package:krushak/globals.dart';
 import 'package:krushak/key.dart';
@@ -47,6 +49,12 @@ class _HomeScreenState extends State<HomeScreen> {
     } catch (err) {}
   }
 
+  String? formatDate(DateTime date) {
+    final DateFormat formatter = DateFormat('yyyy-MM-dd');
+    final String formatted = formatter.format(date);
+    return formatted.toString(); // something like 2013-04-20
+  }
+
   @override
   void initState() {
     super.initState();
@@ -65,11 +73,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: getHeight(context) * 0.01,
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 18.0),
-                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 18.0),
+                  child: Container(
                     height: 100,
                     width: getWidth(context),
                     decoration: BoxDecoration(
+                        color: Colors.grey.shade100,
                         borderRadius: BorderRadius.circular(20),
                         border: Border.all(color: Colors.grey.shade300)),
                     child: weather_load
@@ -81,8 +90,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                   strokeWidth: 2,
                                   color: primary,
                                 )))
-                        : Text(forecast![0].date.toString())),
-              ),
+                        : WeatherInfo(
+                            forecast: forecast,
+                            weather: forecast![0].weatherMain.toString(),
+                            temp: forecast![0].temperature.toString(),
+                            wind: forecast![0].windSpeed.toString(),
+                            date: formatDate(forecast![0].date!)),
+                  )),
               SizedBox(
                 height: 20,
               ),
