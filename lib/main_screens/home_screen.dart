@@ -63,9 +63,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Expanded(
+    return Scaffold(
+      body: Container(
+        height: getHeight(context) * 0.9,
+        child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -103,7 +104,9 @@ class _HomeScreenState extends State<HomeScreen> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 18.0),
                 child: Text(
-                  'Nearby',
+                  langCode == 'hi'
+                      ? translate('Nearby', langCode).toString()
+                      : 'Nearby',
                   style: TextStyle(
                       fontFamily: 'SemiBold', fontSize: 26, color: secondary),
                 ),
@@ -167,10 +170,26 @@ class _HomeScreenState extends State<HomeScreen> {
                       }),
                 ),
               ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 18.0),
+                child: Text(
+                  'News',
+                  style: TextStyle(
+                      fontFamily: 'SemiBold', fontSize: 26, color: secondary),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 18.0),
+                child: Text(
+                  'News',
+                  style: TextStyle(
+                      fontFamily: 'SemiBold', fontSize: 26, color: secondary),
+                ),
+              )
             ],
           ),
         ),
-      ],
+      ),
     );
   }
 }

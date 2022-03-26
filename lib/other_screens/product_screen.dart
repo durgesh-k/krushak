@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:krushak/globals.dart';
+import 'package:translator/translator.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ProductScreen extends StatefulWidget {
   final Map<String, dynamic>? product;
@@ -10,6 +12,22 @@ class ProductScreen extends StatefulWidget {
 }
 
 class _ProductScreenState extends State<ProductScreen> {
+  var description;
+
+  void translate() async {
+    final translator = GoogleTranslator();
+    description = (await translator.translate(widget.product!['description'],
+        from: 'en', to: 'hi'));
+    setState(() {});
+    print('desc -- $description');
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    translate();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -113,14 +131,16 @@ class _ProductScreenState extends State<ProductScreen> {
                     fontFamily: 'SemiBold', fontSize: 20, color: secondary),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(18.0),
-              child: Text(
-                widget.product!['description'],
-                style: TextStyle(
-                    fontFamily: 'Medium', fontSize: 18, color: secondary),
-              ),
-            ),
+            description != null
+                ? Padding(
+                    padding: const EdgeInsets.all(18.0),
+                    child: Text(
+                      description.toString(),
+                      style: TextStyle(
+                          fontFamily: 'Medium', fontSize: 18, color: secondary),
+                    ),
+                  )
+                : Container(),
             Padding(
               padding: const EdgeInsets.all(18.0),
               child: Row(
@@ -250,16 +270,21 @@ class _ProductScreenState extends State<ProductScreen> {
               SizedBox(
                 width: 20,
               ),
-              Container(
-                height: 50,
-                width: getWidth(context) * 0.3,
-                decoration: BoxDecoration(
-                    color: primary, borderRadius: BorderRadius.circular(50)),
-                child: Center(
-                  child: Text(
-                    'Contact',
-                    style: TextStyle(
-                        fontFamily: 'Medium', fontSize: 18, color: secondary),
+              InkWell(
+                onTap: () {
+                  launch("tel:${widget.product!['contact']}");
+                },
+                child: Container(
+                  height: 50,
+                  width: getWidth(context) * 0.3,
+                  decoration: BoxDecoration(
+                      color: primary, borderRadius: BorderRadius.circular(50)),
+                  child: Center(
+                    child: Text(
+                      'Contact',
+                      style: TextStyle(
+                          fontFamily: 'Medium', fontSize: 18, color: secondary),
+                    ),
                   ),
                 ),
               ),

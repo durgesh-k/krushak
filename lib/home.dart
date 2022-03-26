@@ -116,9 +116,63 @@ class _HomeState extends State<Home> {
                           ),
                         ),
                       )
-                    : Container()
+                    : Container(),
+                SizedBox(
+                  width: 10,
+                ),
               ],
             ),
+            Container(
+              decoration: BoxDecoration(
+                  border: Border.all(color: primary!, width: 2),
+                  borderRadius: BorderRadius.circular(50)),
+              child: Padding(
+                padding: const EdgeInsets.all(6.0),
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.language_outlined,
+                      color: secondary,
+                    ),
+                    SizedBox(width: 10),
+                    Container(
+                      height: 20,
+                      child: DropdownButton<String>(
+                        icon: Container(),
+                        underline: Container(),
+                        borderRadius: BorderRadius.circular(20),
+                        hint: Text(
+                          language!,
+                          style: TextStyle(
+                              fontFamily: 'SemiBold',
+                              fontSize: 18,
+                              color: secondary),
+                        ),
+                        items:
+                            <String>['English', 'हिन्दी'].map((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(
+                              value,
+                              style: TextStyle(
+                                  fontFamily: 'SemiBold',
+                                  fontSize: 18,
+                                  color: secondary),
+                            ),
+                          );
+                        }).toList(),
+                        onChanged: (_) {
+                          setState(() {
+                            language = _;
+                            langCode = _!.substring(0, 2).toLowerCase();
+                          });
+                        },
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            )
           ],
         ),
       ),

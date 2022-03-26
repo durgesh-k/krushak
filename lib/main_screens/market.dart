@@ -30,17 +30,20 @@ class _MarketState extends State<Market> {
           SizedBox(
             height: 20,
           ),
-          GridView.count(
-              crossAxisCount: 2,
-              crossAxisSpacing: 10.0,
-              mainAxisSpacing: 10.0,
-              childAspectRatio: (3 / 5),
-              shrinkWrap: true,
-              children: List.generate(
-                  product.length,
-                  (index) => Product(
-                        product: product[index],
-                      )))
+          Expanded(
+            child: GridView.count(
+                physics: BouncingScrollPhysics(),
+                crossAxisCount: 2,
+                crossAxisSpacing: 10.0,
+                mainAxisSpacing: 10.0,
+                childAspectRatio: (3 / 5),
+                shrinkWrap: true,
+                children: List.generate(
+                    product.length,
+                    (index) => Product(
+                          product: product[index],
+                        ))),
+          )
         ],
       ),
     );
