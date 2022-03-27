@@ -92,9 +92,10 @@ class _HomeState extends State<Home> {
                 _selectedIndex == 0
                     ? Container(
                         height: 70,
+                        width: 80,
                         child: Image.asset(
                           'assets/logo_transparent.png',
-                          fit: BoxFit.contain,
+                          fit: BoxFit.cover,
                         ))
                     : Text(
                         titles[_selectedIndex!],
@@ -191,6 +192,7 @@ class _HomeState extends State<Home> {
 
                             print(langCode);
                           });
+                          runApp(const MyApp());
                         },
                       ),
                     )

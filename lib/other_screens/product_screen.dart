@@ -14,18 +14,18 @@ class ProductScreen extends StatefulWidget {
 class _ProductScreenState extends State<ProductScreen> {
   var description;
 
-  void translate() async {
+  /*void translate() async {
     final translator = GoogleTranslator();
     description = (await translator.translate(widget.product!['description'],
         from: 'en', to: 'hi'));
     setState(() {});
     print('desc -- $description');
-  }
+  }*/
 
   @override
   void initState() {
     super.initState();
-    translate();
+    //translate();
   }
 
   @override
@@ -131,16 +131,14 @@ class _ProductScreenState extends State<ProductScreen> {
                     fontFamily: 'SemiBold', fontSize: 20, color: secondary),
               ),
             ),
-            description != null
-                ? Padding(
-                    padding: const EdgeInsets.all(18.0),
-                    child: Text(
-                      description.toString(),
-                      style: TextStyle(
-                          fontFamily: 'Medium', fontSize: 18, color: secondary),
-                    ),
-                  )
-                : Container(),
+            Padding(
+              padding: const EdgeInsets.all(18.0),
+              child: Text(
+                widget.product!['description'],
+                style: TextStyle(
+                    fontFamily: 'Medium', fontSize: 18, color: secondary),
+              ),
+            ),
             Padding(
               padding: const EdgeInsets.all(18.0),
               child: Row(

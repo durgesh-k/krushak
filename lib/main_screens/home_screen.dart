@@ -88,7 +88,13 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return screen_load
-        ? CircularProgressIndicator()
+        ? Container(
+            height: getHeight(context),
+            child: Center(
+                child: CircularProgressIndicator(
+              strokeWidth: 2,
+              color: primary,
+            )))
         : Scaffold(
             body: Container(
               height: getHeight(context) * 0.9,

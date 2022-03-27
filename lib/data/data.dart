@@ -201,13 +201,13 @@ List<Map<String, dynamic>> cropp = [
     'url': 'assets/image 32.png',
     'title': 'Bajara',
     'quantity': '100 quintal',
-    'price': '3000rs',
+    'price': '3000',
   },
   {
     'url': 'assets/image 29.png',
     'title': 'Wheat',
     'quantity': '76 quintal',
-    'price': '4500rs',
+    'price': '4500',
   },
 ];
 

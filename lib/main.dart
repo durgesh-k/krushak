@@ -10,15 +10,22 @@ import 'package:krushak/home.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  langCode = await FirebaseFirestore.instance
-      .collection('Users')
-      .doc(FirebaseAuth.instance.currentUser!.uid)
-      .get()
-      .then(
-    (value) {
-      langCode = value.data()!['language'];
-    },
-  );
+  if (FirebaseAuth.instance.currentUser != null) {
+    await FirebaseFirestore.instance
+        .collection('Users')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get()
+        .then(
+      (value) {
+        langCode = value.data()!['language'];
+        if (langCode == 'hi') {
+          language = 'हिन्दी';
+        } else {
+          language = 'English';
+        }
+      },
+    );
+  }
 
   runApp(const MyApp());
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(

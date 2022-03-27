@@ -567,14 +567,14 @@ class _PhoneOTPState extends State<PhoneOTP> {
                                     .collection('Users')
                                     .doc(FirebaseAuth.instance.currentUser!.uid)
                                     .set({'language': langCode});
-                                Navigator.push(
-                                  context,
-                                  PageTransition(
-                                      duration: Duration(milliseconds: 400),
-                                      curve: Curves.bounceInOut,
-                                      type: PageTransitionType.rightToLeft,
-                                      child: Home()),
-                                );
+                                Navigator.pushAndRemoveUntil(
+                                    context,
+                                    PageTransition(
+                                        duration: Duration(milliseconds: 400),
+                                        curve: Curves.bounceInOut,
+                                        type: PageTransitionType.rightToLeft,
+                                        child: Home()),
+                                    (route) => false);
                               } else {
                                 setState(() {
                                   sentloading = false;

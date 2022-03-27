@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:krushak/globals.dart';
+import 'package:translator/translator.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Consultants extends StatefulWidget {
@@ -9,7 +10,9 @@ class Consultants extends StatefulWidget {
   final String? url;
   final String? speciality;
   final int? contact;
+  final String? langCode;
   const Consultants({
+    required this.langCode,
     this.url,
     this.speciality,
     this.title,
@@ -23,6 +26,28 @@ class Consultants extends StatefulWidget {
 }
 
 class _ConsultantState extends State<Consultants> {
+  bool? screen_load = false;
+  void translate() async {
+    setState(() {
+      screen_load = true;
+    });
+    final translator = GoogleTranslator();
+
+    /*head1 = (await translator.translate(head1!, to: 'hi')).toString();
+    head2 =
+        (await translator.translate(head2!, to: widget.langCode!)).toString();*/
+
+    setState(() {
+      screen_load = false;
+    });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return InkWell(

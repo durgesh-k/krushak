@@ -86,7 +86,7 @@ class _LanguageSelectState extends State<LanguageSelect> {
                     setState(() {
                       lang = 'Hindi';
                       langCode = 'hi';
-                      language = 'Hindi';
+                      language = 'हिन्दी';
                     });
                   },
                   child: Container(
