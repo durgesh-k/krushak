@@ -59,10 +59,10 @@ flutter_native_splash:
   web: false
 
   color: "#000000"
-  image: "assets/logo.png"
+  image: "assets/logo_transparent.png"
 
   color_dark: "#000000"
-  image_dark: "assets/logo.png"
+  image_dark: "assets/logo_transparent.png"
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

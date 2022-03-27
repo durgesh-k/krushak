@@ -81,13 +81,6 @@ class _ConsultantState extends State<Consultants> {
                                   fontSize: 16,
                                   color: secondary),
                             ),
-                            Text(
-                              '${widget.contact}',
-                              style: TextStyle(
-                                  fontFamily: 'Regular',
-                                  fontSize: 14,
-                                  color: secondary),
-                            ),
                           ],
                         ),
                         SizedBox(

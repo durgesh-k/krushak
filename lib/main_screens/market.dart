@@ -4,7 +4,8 @@ import 'package:krushak/data/data.dart';
 import 'package:krushak/globals.dart';
 
 class Market extends StatefulWidget {
-  const Market({Key? key}) : super(key: key);
+  final String? langCode;
+  const Market({Key? key,this.langCode}) : super(key: key);
 
   @override
   State<Market> createState() => _MarketState();

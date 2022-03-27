@@ -5,7 +5,8 @@ import 'package:krushak/data/data.dart';
 import 'package:krushak/globals.dart';
 
 class AgriInfo extends StatefulWidget {
-  const AgriInfo({Key? key}) : super(key: key);
+  final String? langCode;
+  const AgriInfo({Key? key,this.langCode}) : super(key: key);
 
   @override
   State<AgriInfo> createState() => _AgriInfoState();

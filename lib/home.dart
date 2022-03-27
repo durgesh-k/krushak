@@ -4,6 +4,7 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:krushak/globals.dart';
 import 'package:krushak/key.dart';
+import 'package:krushak/main.dart';
 import 'package:krushak/main_screens/agri_info.dart';
 import 'package:krushak/main_screens/home_screen.dart';
 import 'package:krushak/main_screens/market.dart';
@@ -18,7 +19,20 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  List<Widget> screens = [HomeScreen(), Market(), Schemes(), AgriInfo()];
+  List<Widget> screens = [
+    HomeScreen(
+      langCode: langCode,
+    ),
+    Market(
+      langCode: langCode,
+    ),
+    Schemes(
+      langCode: langCode,
+    ),
+    AgriInfo(
+      langCode: langCode,
+    )
+  ];
   List<String> titles = ['Home', 'Market', 'Schemes', 'Agri Info'];
   int? _selectedIndex = 0;
   String? locality = '';
@@ -162,9 +176,20 @@ class _HomeState extends State<Home> {
                           );
                         }).toList(),
                         onChanged: (_) {
+                          if (_ == 'हिन्दी') {
+                            setState(() {
+                              langCode = 'hi';
+                            });
+                          } else {
+                            setState(() {
+                              langCode = 'en';
+                            });
+                          }
                           setState(() {
                             language = _;
-                            langCode = _!.substring(0, 2).toLowerCase();
+                            super.reassemble();
+
+                            print(langCode);
                           });
                         },
                       ),

@@ -3,7 +3,8 @@ import 'package:krushak/cards/scheme.dart';
 import 'package:krushak/data/data.dart';
 
 class Schemes extends StatefulWidget {
-  const Schemes({Key? key}) : super(key: key);
+  final String? langCode;
+  const Schemes({Key? key, this.langCode}) : super(key: key);
 
   @override
   State<Schemes> createState() => _SchemesState();

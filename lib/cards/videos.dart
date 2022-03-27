@@ -28,11 +28,33 @@ class _VideosState extends State<Videos> {
             SizedBox(
               height: 4,
             ),
-            Container(
-              child: Image.asset(
-                widget.url!,
-                fit: BoxFit.cover,
-              ),
+            Stack(
+              alignment: Alignment.center,
+              children: [
+                Container(
+                  child: Image.asset(
+                    widget.url!,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                Container(color: Colors.black.withOpacity(0.1)),
+                Center(
+                  child: Container(
+                    height: 60,
+                    width: 60,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(60),
+                        color: primary!.withOpacity(0.5)),
+                    child: Center(
+                      child: Icon(
+                        Icons.play_arrow,
+                        color: Colors.white.withOpacity(0.7),
+                        size: 30,
+                      ),
+                    ),
+                  ),
+                )
+              ],
             ),
             SizedBox(
               height: 8,

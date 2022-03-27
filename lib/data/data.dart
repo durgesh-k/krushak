@@ -4,7 +4,7 @@ List<Map<String, dynamic>> nearby = [
     'title': 'Horticulture Training',
     'start': '10 Feb',
     'end': '12 Feb',
-    'time': '11:00 am to 1:00 pm',
+    'time': '11:00 am - 1:00 pm',
     'address': 'Samyak Horticulture Farms, Pune Highway, Solapur'
   },
   {
@@ -12,7 +12,7 @@ List<Map<String, dynamic>> nearby = [
     'title': 'Organic Farming Training',
     'start': '13 Feb',
     'end': '15 Feb',
-    'time': '12:00 am to 4:00 pm',
+    'time': '12:00 am - 4:00 pm',
     'address': 'Sanchit Farms, Solapur'
   }
 ];
@@ -22,13 +22,15 @@ List<Map<String, dynamic>> videos = [
     'url': 'assets/image 11.png',
     'title': 'Perfect water system layout for organic farming',
     'creator': 'Harsh Mehta',
-    'source': 'Youtube'
+    'source': 'Youtube',
+    'video': 'https://youtu.be/RDCFbfcRcUE'
   },
   {
     'url': 'assets/image 12.png',
     'title': 'Seed treatment & model preparation',
     'creator': 'Harsh Mehta',
-    'source': 'Youtube'
+    'source': 'Youtube',
+    'video': 'https://youtu.be/RDCFbfcRcUE'
   }
 ];
 
@@ -242,4 +244,25 @@ List<Map<String, dynamic>> consultant = [
     'contact': 8857084580,
     'speciality': 'Crop'
   },
+];
+
+List<Map<String, dynamic>> news = [
+  {
+    'url': 'https://www.thehindu.com/business/agri-business/',
+    'image': 'assets/image 13.png',
+    'title':
+        "Farmer union reject govt's proposal to put farm laws on hold, demand repeal",
+    'source': 'The Hindu',
+    'description':
+        "Protesting farmer unions on Thursday rejected the government's proposal to suspend three farm laws for 18 months, and said they want nothing but a complete repeal of all these contentious legislations."
+  },
+  {
+    'url': 'https://www.thehindu.com/business/agri-business/',
+    'image': 'assets/image 13.png',
+    'title':
+        "Farmer union reject govt's proposal to put farm laws on hold, demand repeal",
+    'source': 'The Hindu',
+    'description':
+        "Protesting farmer unions on Thursday rejected the government's proposal to suspend three farm laws for 18 months, and said they want nothing but a complete repeal of all these contentious legislations."
+  }
 ];
