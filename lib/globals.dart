@@ -27,6 +27,7 @@ double getWidth(context) {
   return width;
 }
 
+String? city;
 Locale? locale;
 
 String? formatDate(DateTime date) {

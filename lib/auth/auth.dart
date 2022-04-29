@@ -18,6 +18,21 @@ class Authenticate extends StatelessWidget {
   }
 }
 
+Future logOut(BuildContext context) async {
+  FirebaseAuth _auth = FirebaseAuth.instance;
+
+  try {
+    await _auth.signOut().then((value) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => LanguageSelect()),
+      );
+    });
+  } catch (e) {
+    print("error");
+  }
+}
+
 class PhoneAuth extends StatefulWidget {
   const PhoneAuth({Key? key}) : super(key: key);
 

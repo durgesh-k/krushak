@@ -218,7 +218,7 @@ class _SchemesInfoState extends State<SchemesInfo> {
               ),
               InkWell(
                 onTap: () {
-                  launch("${widget.scheme!['url']}");
+                  launch("${widget.scheme!['url']}", forceWebView: true);
                 },
                 child: Container(
                   height: 50,

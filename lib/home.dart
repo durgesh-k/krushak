@@ -61,10 +61,12 @@ class _HomeState extends State<Home> {
       );
       setState(() {
         locality = placemarks[0].locality;
+        city = locality;
         lat = position.latitude;
         lon = position.longitude;
       });
       print('locationssd--${placemarks[0]}');
+      print('locationssd--${placemarks[0].locality}');
       print('lat--${position.latitude}');
       print('lon--${position.longitude}');
       //getWeather(lat!, lon!);
@@ -120,13 +122,15 @@ class _HomeState extends State<Home> {
                                 size: 16,
                                 color: Colors.black.withOpacity(0.4),
                               ),
-                              Text(
-                                locality!,
-                                style: TextStyle(
-                                    fontFamily: 'Medium',
-                                    color: Colors.black.withOpacity(0.4),
-                                    fontSize: 16),
-                              ),
+                              locality == ''
+                                  ? Container()
+                                  : Text(
+                                      locality!,
+                                      style: TextStyle(
+                                          fontFamily: 'Medium',
+                                          color: Colors.black.withOpacity(0.4),
+                                          fontSize: 16),
+                                    ),
                             ],
                           ),
                         ),
@@ -192,14 +196,14 @@ class _HomeState extends State<Home> {
 
                             print(langCode);
                           });
-                          runApp(const MyApp());
+                          //runApp(const MyApp());
                         },
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),

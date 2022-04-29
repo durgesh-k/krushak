@@ -20,7 +20,7 @@ class _NearbyTrainingsState extends State<NearbyTrainings> {
   Widget build(BuildContext context) {
     return Container(
       width: getWidth(context) * 0.7,
-      height: 200,
+      //height: 200,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
           border: Border.all(color: Colors.grey.shade300)),
@@ -35,7 +35,7 @@ class _NearbyTrainingsState extends State<NearbyTrainings> {
                   child: Container(
                     height: 60,
                     width: 60,
-                    child: Image.asset(
+                    child: Image.network(
                       widget.url!,
                       fit: BoxFit.cover,
                     ),

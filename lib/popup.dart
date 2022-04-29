@@ -1,8 +1,10 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:google_directions_api/google_directions_api.dart';
 import 'package:intl/intl.dart';
 import 'package:krushak/globals.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:weather/weather.dart';
 
 /// {@template hero_dialog_route}
@@ -86,6 +88,24 @@ class NearbyPopup extends StatefulWidget {
 }
 
 class _NearbyPopupState extends State<NearbyPopup> {
+  /*static void navigateTo(double lat, double lng) async {
+    var uri = Uri.parse("google.navigation:q=$lat,$lng&mode=d");
+    if (await canLaunch(uri.toString())) {
+      await launch(uri.toString());
+    } else {
+      throw 'Could not launch ${uri.toString()}';
+    }
+  }*/
+
+  void launchMap(String address) async {
+    String query = Uri.encodeComponent(address);
+    String googleUrl = "https://www.google.com/maps/search/?api=1&query=$query";
+
+    if (await canLaunch(googleUrl)) {
+      await launch(googleUrl);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -115,7 +135,7 @@ class _NearbyPopupState extends State<NearbyPopup> {
                             child: Container(
                               height: 60,
                               width: 60,
-                              child: Image.asset(
+                              child: Image.network(
                                 widget.nearby!['url'],
                                 fit: BoxFit.cover,
                               ),
@@ -196,7 +216,59 @@ class _NearbyPopupState extends State<NearbyPopup> {
                             ),
                           ),
                         ),
-                      )
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      InkWell(
+                        onTap: () {
+                          DirectionsService.init(
+                              'AIzaSyAcnv76t3MrO7z4tm1TTgdIOMiAU5w5oxo');
+
+                          final directionsService = DirectionsService();
+
+                          final request = DirectionsRequest(
+                            origin: 'New York',
+                            destination:
+                                'In front of riddhi siddhi ganesh mandir, Akkalkot',
+                            travelMode: TravelMode.driving,
+                          );
+
+                          print('request--${request}');
+                          // navigateTo(request.origin, request.destination);
+                          launchMap(request.destination);
+
+                          directionsService.route(request,
+                              (DirectionsResult response,
+                                  DirectionsStatus? status) {
+                            if (status == DirectionsStatus.ok) {
+                              // do something with successful response
+                            } else {
+                              // do something with error response
+                            }
+                          });
+                        },
+                        child: Container(
+                          width: getWidth(context),
+                          decoration: BoxDecoration(
+                              color: primary,
+                              borderRadius: BorderRadius.circular(40),
+                              border: Border.all(
+                                  color: Colors.black.withOpacity(0.3))),
+                          child: Center(
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                'Directions',
+                                style: TextStyle(
+                                    fontFamily: 'SemiBold',
+                                    fontSize: 24,
+                                    color: secondary),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),
