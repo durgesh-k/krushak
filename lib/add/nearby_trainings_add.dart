@@ -1,12 +1,16 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:intl/intl.dart';
 import 'package:krushak/globals.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class NearbyTrainingsAdd extends StatefulWidget {
   const NearbyTrainingsAdd({Key? key}) : super(key: key);
@@ -26,6 +30,7 @@ class _NearbyTrainingsAddState extends State<NearbyTrainingsAdd> {
   TimeOfDay endTime = TimeOfDay.now();
   String start = '';
   String end = '';
+  bool? submitting = false;
 
   Future<void> _selectStartTime(BuildContext context) async {
     final TimeOfDay? picked_s = await showTimePicker(
@@ -71,7 +76,7 @@ class _NearbyTrainingsAddState extends State<NearbyTrainingsAdd> {
     if (permissionStatus.isGranted) {
       FilePickerResult? result = await FilePicker.platform.pickFiles(
         type: FileType.custom,
-        allowedExtensions: ['pdf', 'doc'],
+        allowedExtensions: ['jpg', 'png'],
       );
       PlatformFile pdf;
       var fileName = result!.paths.toString().split('/').last;
@@ -407,7 +412,114 @@ class _NearbyTrainingsAddState extends State<NearbyTrainingsAdd> {
                   ],
                 ),
               ],
-            )
+            ),
+            SizedBox(
+              height: 50,
+            ),
+            InkWell(
+              onTap: () {
+                addSubmission();
+              },
+              child: Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(6),
+                      color: Colors.grey.shade100),
+                  child: Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: submitting!
+                        ? LinearProgressIndicator(
+                            minHeight: 2,
+                            color: primary,
+                          )
+                        : Row(
+                            children: [
+                              Icon(
+                                Icons.image,
+                                color: secondary!.withOpacity(0.3),
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Text(
+                                'Add Image',
+                                style: TextStyle(
+                                    fontFamily: 'SemiBold',
+                                    fontSize: 16,
+                                    color: secondary!.withOpacity(0.3)),
+                              )
+                            ],
+                          ),
+                  )),
+            ),
+            SizedBox(
+              height: 50,
+            ),
+            Text(
+              'Address',
+              style: TextStyle(
+                  fontFamily: 'SemiBold', fontSize: 16, color: secondary),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            TextFormField(
+              keyboardType: TextInputType.phone,
+              controller: title,
+              validator: (String? value) {
+                if (value!.isEmpty) {
+                  setState(() {
+                    opacity = 1.0;
+                    emailOpacity = 1.0;
+                    msg = 'Mobile Number is required';
+                  });
+                  return null;
+                } else if (!RegExp(r'(^(?:[+0]9)?[0-9]{10}$)')
+                    .hasMatch(value)) {
+                  setState(() {
+                    opacity = 1.0;
+                    emailOpacity = 1.0;
+                    msg = 'Please enter a valid Mobile Number';
+                  });
+                  return null;
+                }
+                setState(() {
+                  emailOpacity = 0.0;
+                });
+                return null;
+              },
+              inputFormatters: [FilteringTextInputFormatter.deny(' ')],
+              style: TextStyle(
+                fontFamily: "Medium",
+                fontSize: 20,
+                color: Colors.black,
+              ),
+              decoration: InputDecoration(
+                focusColor: Colors.white,
+                border: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                      color: Colors.black.withOpacity(0.0), width: 2),
+                ),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.black, width: 2),
+                ),
+                disabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.black, width: 2),
+                ),
+                filled: false,
+                fillColor: Colors.white.withOpacity(0.1),
+                suffixIcon: Icon(
+                  Icons.error,
+                  size: 15,
+                  color: Colors.red.withOpacity(emailOpacity),
+                ),
+                hintText: 'Your Training title here',
+                hintStyle: TextStyle(
+                  fontFamily: "Medium",
+                  fontSize: 20, //16,
+                  color: Colors.black.withOpacity(0.3),
+                ),
+              ),
+            ),
           ],
         ),
       ),

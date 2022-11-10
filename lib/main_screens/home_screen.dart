@@ -34,6 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
   WeatherFactory wf = WeatherFactory(api_key!);
   bool weather_load = true;
   bool screen_load = false;
+
   void getWeather(double lat, double lon) async {
     List<Weather> _forecast = await wf.fiveDayForecastByLocation(lat, lon);
     setState(() {

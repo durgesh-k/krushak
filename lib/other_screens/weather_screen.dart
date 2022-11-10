@@ -46,7 +46,15 @@ class _WeatherPopupState extends State<WeatherPopup> {
           children: [
             Row(
               children: [
-                ClipRRect(
+                Container(
+                  //height: 100,
+                  width: 70,
+                  child: Image.network(
+                    "http://openweathermap.org/img/wn/${widget.forecast![0].weatherIcon}@2x.png",
+                    fit: BoxFit.contain,
+                  ),
+                ),
+                /*ClipRRect(
                   borderRadius: BorderRadius.circular(16),
                   child: Container(
                     height: 80,
@@ -56,7 +64,7 @@ class _WeatherPopupState extends State<WeatherPopup> {
                       fit: BoxFit.cover,
                     ),
                   ),
-                ),
+                ),*/
                 SizedBox(
                   width: 16,
                 ),
@@ -257,12 +265,20 @@ class _FutureWeatherState extends State<FutureWeather> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(14), color: Colors.grey.shade100),
+          borderRadius: BorderRadius.circular(14), color: Colors.grey.shade50),
       child: Padding(
         padding: const EdgeInsets.all(18.0),
         child: Row(
           children: [
-            ClipRRect(
+            Container(
+              //height: 100,
+              width: 70,
+              child: Image.network(
+                "http://openweathermap.org/img/wn/${widget.forecast!.weatherIcon}@2x.png",
+                fit: BoxFit.contain,
+              ),
+            ),
+            /* ClipRRect(
               borderRadius: BorderRadius.circular(20),
               child: Container(
                 height: 60,
@@ -272,7 +288,7 @@ class _FutureWeatherState extends State<FutureWeather> {
                   fit: BoxFit.cover,
                 ),
               ),
-            ),
+            ),*/
             SizedBox(
               width: 10,
             ),

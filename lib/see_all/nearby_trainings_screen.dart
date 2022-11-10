@@ -81,13 +81,13 @@ class _NearbyTrainingsSeeMoreState extends State<NearbyTrainingsSeeMore> {
                         size: 16,
                         color: Colors.black.withOpacity(0.4),
                       ),
-                      Text(
+                      /*Text(
                         'New',
                         style: TextStyle(
                             fontFamily: 'Medium',
                             color: Colors.black.withOpacity(0.4),
                             fontSize: 16),
-                      ),
+                      ),*/
                     ],
                   ),
                 ),

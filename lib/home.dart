@@ -60,12 +60,12 @@ class _HomeState extends State<Home> {
         position.longitude,
       );
       setState(() {
-        locality = placemarks[0].locality;
+        locality = placemarks[0].name;
         city = locality;
         lat = position.latitude;
         lon = position.longitude;
       });
-      print('locationssd--${placemarks[0]}');
+      print('locationssd1--${placemarks[0].name}');
       print('locationssd--${placemarks[0].locality}');
       print('lat--${position.latitude}');
       print('lon--${position.longitude}');
@@ -94,9 +94,9 @@ class _HomeState extends State<Home> {
                 _selectedIndex == 0
                     ? Container(
                         height: 70,
-                        width: 80,
+                        width: 90,
                         child: Image.asset(
-                          'assets/logo_transparent.png',
+                          'assets/english_logo_transparent.png',
                           fit: BoxFit.cover,
                         ))
                     : Text(
@@ -122,15 +122,15 @@ class _HomeState extends State<Home> {
                                 size: 16,
                                 color: Colors.black.withOpacity(0.4),
                               ),
-                              locality == ''
-                                  ? Container()
-                                  : Text(
+                              locality != ''
+                                  ? Text(
                                       locality!,
                                       style: TextStyle(
                                           fontFamily: 'Medium',
                                           color: Colors.black.withOpacity(0.4),
                                           fontSize: 16),
-                                    ),
+                                    )
+                                  : Container()
                             ],
                           ),
                         ),

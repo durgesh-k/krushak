@@ -98,7 +98,7 @@ class _PhoneAuthState extends State<PhoneAuth> {
                     height: getHeight(context) * 0.04,
                   ),
                   Image.asset(
-                    'assets/logo_transparent.png',
+                    'assets/english_logo_transparent.png',
                     height: 100,
                   ),
                   SizedBox(
@@ -441,7 +441,7 @@ class _PhoneOTPState extends State<PhoneOTP> {
                     height: getHeight(context) * 0.04,
                   ),
                   Image.asset(
-                    'assets/logo_transparent.png',
+                    'assets/english_logo_transparent.png',
                     height: 100,
                   ),
                   SizedBox(

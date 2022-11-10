@@ -36,7 +36,7 @@ class _LanguageSelectState extends State<LanguageSelect> {
                     height: getHeight(context) * 0.3,
                     width: getWidth(context) * 0.4,
                     child: Image.asset(
-                      'assets/logo_transparent.png',
+                      'assets/english_logo_transparent.png',
                       fit: BoxFit.contain,
                     )),
                 Text(
