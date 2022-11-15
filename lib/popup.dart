@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_directions_api/google_directions_api.dart';
 import 'package:intl/intl.dart';
 import 'package:krushak/globals.dart';
+import 'package:maps_launcher/maps_launcher.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:weather/weather.dart';
 
@@ -81,7 +82,9 @@ class CustomRectTween extends RectTween {
 class NearbyPopup extends StatefulWidget {
   final String? hero;
   final Map<String, dynamic>? nearby;
-  const NearbyPopup({Key? key, this.hero, this.nearby}) : super(key: key);
+  final String? langCode;
+  const NearbyPopup({Key? key, this.hero, this.nearby, this.langCode})
+      : super(key: key);
 
   @override
   State<NearbyPopup> createState() => _NearbyPopupState();
@@ -149,9 +152,10 @@ class _NearbyPopupState extends State<NearbyPopup> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
+                                TranslatedText(
+                                  widget.langCode!,
                                   widget.nearby!['title'],
-                                  style: TextStyle(
+                                  TextStyle(
                                       fontFamily: 'SemiBold',
                                       color: secondary,
                                       fontSize: 28),
@@ -164,9 +168,10 @@ class _NearbyPopupState extends State<NearbyPopup> {
                       SizedBox(
                         height: 10,
                       ),
-                      Text(
+                      TranslatedText(
+                        widget.langCode!,
                         '${widget.nearby!['address']}',
-                        style: TextStyle(
+                        TextStyle(
                             fontFamily: 'Regular',
                             fontSize: 18,
                             color: secondary),
@@ -184,9 +189,10 @@ class _NearbyPopupState extends State<NearbyPopup> {
                         child: Center(
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: Text(
+                            child: TranslatedText(
+                              widget.langCode!,
                               '${widget.nearby!['start']}-${widget.nearby!['end']}',
-                              style: TextStyle(
+                              TextStyle(
                                   fontFamily: 'SemiBold',
                                   fontSize: 24,
                                   color: secondary),
@@ -207,9 +213,10 @@ class _NearbyPopupState extends State<NearbyPopup> {
                         child: Center(
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: Text(
+                            child: TranslatedText(
+                              widget.langCode!,
                               '${widget.nearby!['time']}',
-                              style: TextStyle(
+                              TextStyle(
                                   fontSize: 24,
                                   fontFamily: 'SemiBold',
                                   color: secondary),
@@ -222,7 +229,8 @@ class _NearbyPopupState extends State<NearbyPopup> {
                       ),
                       InkWell(
                         onTap: () {
-                          DirectionsService.init(
+                          MapsLauncher.launchQuery(widget.nearby!['address']);
+                          /*DirectionsService.init(
                               'AIzaSyAcnv76t3MrO7z4tm1TTgdIOMiAU5w5oxo');
 
                           final directionsService = DirectionsService();
@@ -246,7 +254,7 @@ class _NearbyPopupState extends State<NearbyPopup> {
                             } else {
                               // do something with error response
                             }
-                          });
+                          });*/
                         },
                         child: Container(
                           width: getWidth(context),
@@ -258,9 +266,10 @@ class _NearbyPopupState extends State<NearbyPopup> {
                           child: Center(
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: Text(
+                              child: TranslatedText(
+                                widget.langCode!,
                                 'Directions',
-                                style: TextStyle(
+                                TextStyle(
                                     fontFamily: 'SemiBold',
                                     fontSize: 24,
                                     color: secondary),

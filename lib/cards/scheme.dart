@@ -51,9 +51,10 @@ class _SchemeState extends State<Scheme> {
                     children: [
                       Container(
                         width: getWidth(context) * 0.6,
-                        child: Text(
+                        child: TranslatedText(
+                          langCode!,
                           widget.scheme!['name'],
-                          style: TextStyle(
+                          TextStyle(
                               fontFamily: 'SemiBold',
                               fontSize: 20,
                               color: secondary),
@@ -64,9 +65,10 @@ class _SchemeState extends State<Scheme> {
                       ),
                       Container(
                         width: getWidth(context) * 0.6,
-                        child: Text(
+                        child: TranslatedText(
+                          langCode!,
                           widget.scheme!['from'],
-                          style: TextStyle(
+                          TextStyle(
                               fontFamily: 'Medium',
                               fontSize: 16,
                               color: secondary),
@@ -81,9 +83,10 @@ class _SchemeState extends State<Scheme> {
               ),
               Container(
                 width: getWidth(context),
-                child: Text(
+                child: TranslatedText(
+                  langCode!,
                   widget.scheme!['description'],
-                  style: TextStyle(
+                  TextStyle(
                       fontFamily: 'Medium', fontSize: 14, color: secondary),
                 ),
               ),
@@ -101,9 +104,10 @@ class _SchemeState extends State<Scheme> {
                           child: Center(
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: Text(
+                              child: TranslatedText(
+                                langCode!,
                                 widget.scheme!['benefit'],
-                                style: TextStyle(
+                                TextStyle(
                                     fontFamily: 'Medium',
                                     fontSize: 14,
                                     color: secondary),

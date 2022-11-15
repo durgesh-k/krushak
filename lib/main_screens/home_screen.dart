@@ -6,6 +6,7 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
 import 'package:krushak/auth/auth.dart';
+import 'package:krushak/cards/crop_prices.dart';
 import 'package:krushak/cards/nearby_trainings.dart';
 import 'package:krushak/cards/news.dart';
 import 'package:krushak/cards/videos.dart';
@@ -45,7 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   String head1 = 'Nearby';
-  String head2 = 'Learn';
+  String head2 = 'Crop Prices';
   String head3 = 'News';
 
   void getLocation() async {
@@ -72,7 +73,8 @@ class _HomeScreenState extends State<HomeScreen> {
     });
     final translator = GoogleTranslator();
 
-    head1 = (await translator.translate(head1, to: 'hi')).toString();
+    head1 =
+        (await translator.translate(head1, to: widget.langCode!)).toString();
     head2 =
         (await translator.translate(head2, to: widget.langCode!)).toString();
     head3 =
@@ -153,6 +155,35 @@ class _HomeScreenState extends State<HomeScreen> {
                                   date: formatDate(forecast![0].date!)),
                             ),
                     )),
+                Padding(
+                  padding: const EdgeInsets.all(18.0),
+                  child: TranslatedText(
+                    langCode!,
+                    head2,
+                    TextStyle(
+                        fontFamily: 'SemiBold', fontSize: 26, color: secondary),
+                  ),
+                ),
+                Container(
+                    height: 124,
+                    child: Expanded(
+                        child: ListView.builder(
+                            physics: BouncingScrollPhysics(),
+                            itemCount: cropp.length,
+                            scrollDirection: Axis.horizontal,
+                            itemBuilder: (ctx, i) {
+                              return Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 18.0, right: 0),
+                                child: CropPrices(
+                                  langCode: widget.langCode,
+                                  title: cropp[i]['title'],
+                                  url: cropp[i]['url'],
+                                  quantity: cropp[i]['quantity'],
+                                  price: cropp[i]['price'],
+                                ),
+                              );
+                            }))),
                 SizedBox(
                   height: 20,
                 ),
@@ -161,9 +192,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
+                      TranslatedText(
+                        langCode!,
                         head1,
-                        style: TextStyle(
+                        TextStyle(
                             fontFamily: 'SemiBold',
                             fontSize: 26,
                             color: secondary),
@@ -185,9 +217,10 @@ class _HomeScreenState extends State<HomeScreen> {
                               borderRadius: BorderRadius.circular(50)),
                           child: Padding(
                             padding: const EdgeInsets.all(6.0),
-                            child: Text(
+                            child: TranslatedText(
+                              langCode!,
                               'See All >',
-                              style: TextStyle(
+                              TextStyle(
                                   fontFamily: 'SemiBold',
                                   fontSize: 14,
                                   color: secondary),
@@ -206,7 +239,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Expanded(
                     child: StreamBuilder<QuerySnapshot>(
                       stream: FirebaseFirestore.instance
-                          .collection("Nearby")
+                          .collection("Trainings")
+                          .where('city', isEqualTo: city)
                           .snapshots(),
                       builder: (BuildContext context,
                           AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -266,71 +300,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        head2,
-                        style: TextStyle(
-                            fontFamily: 'SemiBold',
-                            fontSize: 26,
-                            color: secondary),
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                            border: Border.all(color: primary!, width: 2),
-                            borderRadius: BorderRadius.circular(50)),
-                        child: Padding(
-                          padding: const EdgeInsets.all(6.0),
-                          child: Text(
-                            'See All >',
-                            style: TextStyle(
-                                fontFamily: 'SemiBold',
-                                fontSize: 14,
-                                color: secondary),
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Container(
-                  height: 260,
-                  child: Expanded(
-                    child: ListView.builder(
-                        physics: BouncingScrollPhysics(),
-                        itemCount: videos.length,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (ctx, i) {
-                          return Padding(
-                              padding:
-                                  const EdgeInsets.only(left: 18.0, right: 0),
-                              child: InkWell(
-                                onTap: () {
-                                  launch(videos[i]['video'],
-                                      forceWebView: true);
-                                },
-                                child: Videos(
-                                  title: videos[i]['title'],
-                                  source: videos[i]['source'],
-                                  creator: videos[i]['creator'],
-                                  url: videos[i]['url'],
-                                ),
-                              ));
-                        }),
-                  ),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 18.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
+                      TranslatedText(
+                        langCode!,
                         head3,
-                        style: TextStyle(
+                        TextStyle(
                             fontFamily: 'SemiBold',
                             fontSize: 26,
                             color: secondary),
@@ -341,9 +314,10 @@ class _HomeScreenState extends State<HomeScreen> {
                             borderRadius: BorderRadius.circular(50)),
                         child: Padding(
                           padding: const EdgeInsets.all(6.0),
-                          child: Text(
+                          child: TranslatedText(
+                            langCode!,
                             'See All >',
-                            style: TextStyle(
+                            TextStyle(
                                 fontFamily: 'SemiBold',
                                 fontSize: 14,
                                 color: secondary),
@@ -403,10 +377,11 @@ class _HomeScreenState extends State<HomeScreen> {
                               color: Colors.grey.shade500,
                             ),
                           ),
-                          Text(
+                          TranslatedText(
+                            langCode!,
                             FirebaseAuth.instance.currentUser!.phoneNumber
                                 .toString(),
-                            style: TextStyle(
+                            TextStyle(
                                 fontFamily: 'SemiBold',
                                 fontSize: 20,
                                 color: secondary),
@@ -424,9 +399,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                   color: primary),
                               child: Padding(
                                 padding: const EdgeInsets.all(12.0),
-                                child: Text(
+                                child: TranslatedText(
+                                  langCode!,
                                   'Logout',
-                                  style: TextStyle(
+                                  TextStyle(
                                       fontFamily: 'SemiBold',
                                       fontSize: 16,
                                       color: secondary),

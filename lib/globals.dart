@@ -27,7 +27,7 @@ double getWidth(context) {
   return width;
 }
 
-String? city;
+String? city = '';
 Locale? locale;
 
 String? formatDate(DateTime date) {
@@ -53,3 +53,32 @@ List<String> months = [
   'November',
   'December'
 ];
+
+GoogleTranslator translator = GoogleTranslator();
+Future<String> translate(String translateText, String langCode) async {
+  var result = await translator.translate(translateText, to: langCode);
+  return result.toString();
+}
+
+Widget TranslatedText(String langCode, String text, TextStyle style) {
+  if (langCode == 'en') {
+    return Text(
+      text,
+      style: style,
+    );
+  }
+  return Container(
+      child: FutureBuilder(
+          future: translate(text, langCode),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              return Text(
+                snapshot.data.toString(),
+                //overflow: TextOverflow.ellipsis,
+                style: style,
+              );
+            } else {
+              return Text(" ");
+            }
+          }));
+}

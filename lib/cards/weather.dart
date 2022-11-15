@@ -42,7 +42,7 @@ class _WeatherInfoState extends State<WeatherInfo> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        /*Text(
+                        /*TranslatedText(
                           widget.date!,
                           style: TextStyle(
                               fontFamily: 'Medium',
@@ -60,9 +60,10 @@ class _WeatherInfoState extends State<WeatherInfo> {
                                   borderRadius: BorderRadius.circular(50)),
                               child: Padding(
                                 padding: const EdgeInsets.all(12.0),
-                                child: Text(
+                                child: TranslatedText(
+                                  langCode!,
                                   '${widget.forecast![0].temperature!.toString().substring(0, 4)} °C',
-                                  style: TextStyle(
+                                  TextStyle(
                                       fontFamily: 'SemiBold',
                                       color: secondary,
                                       fontSize: 20),
@@ -72,9 +73,10 @@ class _WeatherInfoState extends State<WeatherInfo> {
                             SizedBox(
                               width: 10,
                             ),
-                            Text(
+                            TranslatedText(
+                              langCode!,
                               widget.weather!,
-                              style: TextStyle(
+                              TextStyle(
                                   fontFamily: 'Bold',
                                   color: secondary,
                                   fontSize: 20),

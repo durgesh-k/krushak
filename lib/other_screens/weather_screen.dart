@@ -20,9 +20,10 @@ class _WeatherPopupState extends State<WeatherPopup> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        title: Text(
+        title: TranslatedText(
+          langCode!,
           'Weather Info',
-          style: TextStyle(fontFamily: 'SemiBold', color: Colors.black),
+          TextStyle(fontFamily: 'SemiBold', color: Colors.black),
         ),
         leading: InkWell(
           onTap: () {
@@ -77,9 +78,10 @@ class _WeatherPopupState extends State<WeatherPopup> {
                           borderRadius: BorderRadius.circular(20)),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Text(
+                        child: TranslatedText(
+                          langCode!,
                           formatDate(widget.forecast![0].date!)!,
-                          style: TextStyle(
+                          TextStyle(
                               fontFamily: 'Medium',
                               color: secondary,
                               fontSize: 16),
@@ -91,9 +93,10 @@ class _WeatherPopupState extends State<WeatherPopup> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
+                          TranslatedText(
+                            langCode!,
                             widget.forecast![0].weatherMain.toString(),
-                            style: TextStyle(
+                            TextStyle(
                                 fontFamily: 'SemiBold',
                                 color: secondary,
                                 fontSize: 28),
@@ -135,9 +138,10 @@ class _WeatherPopupState extends State<WeatherPopup> {
                           SizedBox(
                             width: 8,
                           ),
-                          Text(
+                          TranslatedText(
+                            langCode!,
                             '${widget.forecast![0].temperature!.toString().substring(0, 4)} °C',
-                            style: TextStyle(
+                            TextStyle(
                                 fontFamily: 'Medium',
                                 fontSize: 30,
                                 color: secondary),
@@ -162,9 +166,10 @@ class _WeatherPopupState extends State<WeatherPopup> {
                           SizedBox(
                             width: 8,
                           ),
-                          Text(
+                          TranslatedText(
+                            langCode!,
                             widget.forecast![0].humidity!.toString(),
-                            style: TextStyle(
+                            TextStyle(
                                 fontFamily: 'Medium',
                                 fontSize: 30,
                                 color: secondary),
@@ -189,9 +194,10 @@ class _WeatherPopupState extends State<WeatherPopup> {
                           SizedBox(
                             width: 8,
                           ),
-                          Text(
+                          TranslatedText(
+                            langCode!,
                             widget.forecast![0].windDegree!.toString(),
-                            style: TextStyle(
+                            TextStyle(
                                 fontFamily: 'Medium',
                                 fontSize: 30,
                                 color: secondary),
@@ -216,9 +222,10 @@ class _WeatherPopupState extends State<WeatherPopup> {
                           SizedBox(
                             width: 8,
                           ),
-                          Text(
+                          TranslatedText(
+                            langCode!,
                             widget.forecast![0].cloudiness!.toString(),
-                            style: TextStyle(
+                            TextStyle(
                                 fontFamily: 'Medium',
                                 fontSize: 30,
                                 color: secondary),
@@ -305,9 +312,10 @@ class _FutureWeatherState extends State<FutureWeather> {
                             borderRadius: BorderRadius.circular(20)),
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Text(
+                          child: TranslatedText(
+                            langCode!,
                             formatDate(widget.forecast!.date!)!,
-                            style: TextStyle(
+                            TextStyle(
                                 fontFamily: 'Medium',
                                 color: secondary,
                                 fontSize: 16),
@@ -320,9 +328,10 @@ class _FutureWeatherState extends State<FutureWeather> {
                       Container(
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Text(
+                          child: TranslatedText(
+                            langCode!,
                             '${widget.forecast!.date!.hour.toString()}:${widget.forecast!.date!.minute.toString()}',
-                            style: TextStyle(
+                            TextStyle(
                                 fontFamily: 'Medium',
                                 color: secondary,
                                 fontSize: 16),
@@ -337,9 +346,10 @@ class _FutureWeatherState extends State<FutureWeather> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
+                      TranslatedText(
+                        langCode!,
                         widget.forecast!.weatherMain.toString(),
-                        style: TextStyle(
+                        TextStyle(
                             fontFamily: 'SemiBold',
                             color: secondary,
                             fontSize: 28),
@@ -354,9 +364,10 @@ class _FutureWeatherState extends State<FutureWeather> {
                                   SizedBox(
                                     width: 4,
                                   ),
-                                  Text(
+                                  TranslatedText(
+                                    langCode!,
                                     widget.forecast!.humidity.toString(),
-                                    style: TextStyle(
+                                    TextStyle(
                                         fontFamily: 'Medium',
                                         color: secondary,
                                         fontSize: 18),
@@ -374,9 +385,10 @@ class _FutureWeatherState extends State<FutureWeather> {
                                   SizedBox(
                                     width: 4,
                                   ),
-                                  Text(
+                                  TranslatedText(
+                                    langCode!,
                                     widget.forecast!.cloudiness.toString(),
-                                    style: TextStyle(
+                                    TextStyle(
                                         fontFamily: 'Medium',
                                         color: secondary,
                                         fontSize: 18),

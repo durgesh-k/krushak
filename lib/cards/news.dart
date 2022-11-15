@@ -42,16 +42,18 @@ class _NewsState extends State<News> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
+                      TranslatedText(
+                        langCode!,
                         widget.news!['title'],
-                        style: TextStyle(
+                        TextStyle(
                             fontFamily: 'SemiBold',
                             color: secondary,
                             fontSize: 20),
                       ),
-                      Text(
+                      TranslatedText(
+                        langCode!,
                         '${widget.news!['source']}',
-                        style: TextStyle(
+                        TextStyle(
                             fontFamily: 'Medium',
                             fontSize: 14,
                             color: secondary),
@@ -66,9 +68,10 @@ class _NewsState extends State<News> {
             ),
             Container(
               width: getWidth(context),
-              child: Text(
+              child: TranslatedText(
+                langCode!,
                 widget.news!['description'],
-                style: TextStyle(fontFamily: 'Regular', color: secondary),
+                TextStyle(fontFamily: 'Regular', color: secondary),
               ),
             )
           ],

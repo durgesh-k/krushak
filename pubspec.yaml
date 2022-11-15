@@ -52,6 +52,7 @@ dependencies:
   responsive_framework: ^0.1.8
   web_scraper: ^0.1.4
   flutter_translate: ^4.0.3
+  maps_launcher: ^2.0.1
 
 
   # The following adds the Cupertino Icons font to your application.

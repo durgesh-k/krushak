@@ -85,9 +85,10 @@ class _SchemesInfoState extends State<SchemesInfo> {
                       children: [
                         Container(
                             width: getWidth(context) * 0.55,
-                            child: Text(
+                            child: TranslatedText(
+                              langCode!,
                               widget.scheme!['name'],
-                              style: TextStyle(
+                              TextStyle(
                                   fontFamily: 'SemiBold',
                                   fontSize: 24,
                                   color: secondary),
@@ -97,9 +98,10 @@ class _SchemesInfoState extends State<SchemesInfo> {
                         ),
                         Container(
                             width: getWidth(context) * 0.55,
-                            child: Text(
+                            child: TranslatedText(
+                              langCode!,
                               widget.scheme!['from'],
-                              style: TextStyle(
+                              TextStyle(
                                   fontFamily: 'Medium',
                                   fontSize: 18,
                                   color: secondary),
@@ -113,9 +115,10 @@ class _SchemesInfoState extends State<SchemesInfo> {
                 ),
                 Container(
                   width: getWidth(context),
-                  child: Text(
+                  child: TranslatedText(
+                    langCode!,
                     widget.scheme!['description'],
-                    style: TextStyle(
+                    TextStyle(
                         fontFamily: 'Medium', fontSize: 14, color: secondary),
                   ),
                 ),
@@ -134,9 +137,10 @@ class _SchemesInfoState extends State<SchemesInfo> {
                             child: Center(
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Text(
+                                child: TranslatedText(
+                                  langCode!,
                                   widget.scheme!['benefit'],
-                                  style: TextStyle(
+                                  TextStyle(
                                       fontFamily: 'Medium',
                                       fontSize: 14,
                                       color: secondary),
@@ -164,9 +168,10 @@ class _SchemesInfoState extends State<SchemesInfo> {
                             border: Border.all(color: Colors.grey.shade400)),
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Text(
+                          child: TranslatedText(
+                            langCode!,
                             'How to apply?',
-                            style: TextStyle(
+                            TextStyle(
                                 fontFamily: 'SemiBold',
                                 fontSize: 18,
                                 color: secondary),
@@ -177,9 +182,10 @@ class _SchemesInfoState extends State<SchemesInfo> {
                           padding: const EdgeInsets.symmetric(horizontal: 18.0),
                           child: load!
                               ? CircularProgressIndicator()
-                              : Text(
+                              : TranslatedText(
+                                  langCode!,
                                   step!,
-                                  style: TextStyle(
+                                  TextStyle(
                                       fontFamily: 'Medium',
                                       fontSize: 16,
                                       color: secondary),
@@ -207,9 +213,10 @@ class _SchemesInfoState extends State<SchemesInfo> {
               ),
               Container(
                 width: getWidth(context) * 0.4,
-                child: Text(
+                child: TranslatedText(
+                  langCode!,
                   'Mode: ${widget.scheme!['mode']}',
-                  style: TextStyle(
+                  TextStyle(
                       fontFamily: 'Medium', fontSize: 18, color: secondary),
                 ),
               ),
@@ -226,9 +233,10 @@ class _SchemesInfoState extends State<SchemesInfo> {
                   decoration: BoxDecoration(
                       color: primary, borderRadius: BorderRadius.circular(50)),
                   child: Center(
-                    child: Text(
+                    child: TranslatedText(
+                      langCode!,
                       'Go to website',
-                      style: TextStyle(
+                      TextStyle(
                           fontFamily: 'Medium', fontSize: 18, color: secondary),
                     ),
                   ),

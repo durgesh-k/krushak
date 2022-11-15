@@ -74,25 +74,28 @@ class _CropPricesState extends State<CropPrices> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
+                            TranslatedText(
+                              widget.langCode!,
                               widget.title!,
-                              style: TextStyle(
+                              TextStyle(
                                   fontFamily: 'SemiBold',
                                   color: secondary,
                                   fontSize: 20),
                             ),
                             Row(
                               children: [
-                                Text(
+                                TranslatedText(
+                                  langCode!,
                                   "Today's Arrival: ",
-                                  style: TextStyle(
+                                  TextStyle(
                                       fontFamily: 'SemiBold',
                                       fontSize: 14,
                                       color: secondary),
                                 ),
-                                Text(
+                                TranslatedText(
+                                  langCode!,
                                   widget.quantity!,
-                                  style: TextStyle(
+                                  TextStyle(
                                       fontFamily: 'Regular',
                                       fontSize: 14,
                                       color: secondary),
@@ -108,9 +111,10 @@ class _CropPricesState extends State<CropPrices> {
                                   color: primary),
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Text(
+                                child: TranslatedText(
+                                  langCode!,
                                   'Rs. ${widget.price}/quintal',
-                                  style: TextStyle(
+                                  TextStyle(
                                       fontFamily: 'SemiBold',
                                       fontSize: 18,
                                       color: secondary),

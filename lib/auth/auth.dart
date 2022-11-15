@@ -244,9 +244,10 @@ class _PhoneAuthState extends State<PhoneAuth> {
                         ),
                         Container(
                           width: width * 0.8,
-                          child: Text(
+                          child: TranslatedText(
+                            langCode!,
                             msg,
-                            style: TextStyle(
+                            TextStyle(
                                 color: Colors.red, fontFamily: 'MediumItalic'),
                           ),
                         ),
@@ -534,9 +535,10 @@ class _PhoneOTPState extends State<PhoneOTP> {
                         ),
                         Container(
                           width: width * 0.8,
-                          child: Text(
+                          child: TranslatedText(
+                            langCode!,
                             msg,
-                            style: TextStyle(
+                            TextStyle(
                                 color: Colors.red, fontFamily: 'MediumItalic'),
                           ),
                         ),

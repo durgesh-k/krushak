@@ -61,7 +61,7 @@ class _HomeState extends State<Home> {
       );
       setState(() {
         locality = placemarks[0].name;
-        city = locality;
+        city = placemarks[0].locality;
         lat = position.latitude;
         lon = position.longitude;
       });
@@ -99,10 +99,10 @@ class _HomeState extends State<Home> {
                           'assets/english_logo_transparent.png',
                           fit: BoxFit.cover,
                         ))
-                    : Text(
+                    : TranslatedText(
+                        langCode!,
                         titles[_selectedIndex!],
-                        style: TextStyle(
-                            fontFamily: 'SemiBold', color: Colors.black),
+                        TextStyle(fontFamily: 'SemiBold', color: Colors.black),
                       ),
                 SizedBox(
                   width: 16,
@@ -122,10 +122,11 @@ class _HomeState extends State<Home> {
                                 size: 16,
                                 color: Colors.black.withOpacity(0.4),
                               ),
-                              locality != ''
-                                  ? Text(
-                                      locality!,
-                                      style: TextStyle(
+                              city != ''
+                                  ? TranslatedText(
+                                      langCode!,
+                                      city!,
+                                      TextStyle(
                                           fontFamily: 'Medium',
                                           color: Colors.black.withOpacity(0.4),
                                           fontSize: 16),
@@ -160,9 +161,10 @@ class _HomeState extends State<Home> {
                         icon: Container(),
                         underline: Container(),
                         borderRadius: BorderRadius.circular(20),
-                        hint: Text(
+                        hint: TranslatedText(
+                          langCode!,
                           language!,
-                          style: TextStyle(
+                          TextStyle(
                               fontFamily: 'SemiBold',
                               fontSize: 18,
                               color: secondary),
@@ -171,9 +173,10 @@ class _HomeState extends State<Home> {
                             <String>['English', 'हिन्दी'].map((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
-                            child: Text(
+                            child: TranslatedText(
+                              langCode!,
                               value,
-                              style: TextStyle(
+                              TextStyle(
                                   fontFamily: 'SemiBold',
                                   fontSize: 18,
                                   color: secondary),
@@ -185,10 +188,20 @@ class _HomeState extends State<Home> {
                             setState(() {
                               langCode = 'hi';
                             });
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (BuildContext context) =>
+                                        super.widget));
                           } else {
                             setState(() {
                               langCode = 'en';
                             });
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (BuildContext context) =>
+                                        super.widget));
                           }
                           setState(() {
                             language = _;

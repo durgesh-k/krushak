@@ -1,11 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:krushak/cards/agro_consultant.dart';
 import 'package:krushak/cards/crop_prices.dart';
+import 'package:krushak/cards/videos.dart';
 import 'package:krushak/data/data.dart';
 import 'package:krushak/globals.dart';
 import 'package:translator/translator.dart';
 import 'package:html/parser.dart' as parser;
 import 'package:http/http.dart' as http;
+import 'package:url_launcher/url_launcher.dart';
 
 class AgriInfo extends StatefulWidget {
   final String? langCode;
@@ -106,60 +109,132 @@ class _AgriInfoState extends State<AgriInfo> {
                 )))
             : Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                 Padding(
-                  padding: const EdgeInsets.all(18.0),
-                  child: Text(
-                    head1!,
-                    style: TextStyle(
-                        fontFamily: 'SemiBold', fontSize: 26, color: secondary),
+                  padding: const EdgeInsets.symmetric(horizontal: 18.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      TranslatedText(
+                        langCode!,
+                        'Learn',
+                        TextStyle(
+                            fontFamily: 'SemiBold',
+                            fontSize: 26,
+                            color: secondary),
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                            border: Border.all(color: primary!, width: 2),
+                            borderRadius: BorderRadius.circular(50)),
+                        child: Padding(
+                          padding: const EdgeInsets.all(6.0),
+                          child: TranslatedText(
+                            langCode!,
+                            'See All >',
+                            TextStyle(
+                                fontFamily: 'SemiBold',
+                                fontSize: 14,
+                                color: secondary),
+                          ),
+                        ),
+                      )
+                    ],
                   ),
+                ),
+                SizedBox(
+                  height: 20,
                 ),
                 Container(
-                    height: 124,
-                    child: Expanded(
-                        child: ListView.builder(
-                            physics: BouncingScrollPhysics(),
-                            itemCount: cropp.length,
-                            scrollDirection: Axis.horizontal,
-                            itemBuilder: (ctx, i) {
-                              return Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 18.0, right: 0),
-                                child: CropPrices(
-                                  langCode: widget.langCode,
-                                  title: cropp[i]['title'],
-                                  url: cropp[i]['url'],
-                                  quantity: cropp[i]['quantity'],
-                                  price: cropp[i]['price'],
+                  height: 260,
+                  child: Expanded(
+                    child: ListView.builder(
+                        physics: BouncingScrollPhysics(),
+                        itemCount: videos.length,
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (ctx, i) {
+                          return Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 18.0, right: 0),
+                              child: InkWell(
+                                onTap: () {
+                                  launch(videos[i]['video'],
+                                      forceWebView: true);
+                                },
+                                child: Videos(
+                                  title: videos[i]['title'],
+                                  source: videos[i]['source'],
+                                  creator: videos[i]['creator'],
+                                  url: videos[i]['url'],
                                 ),
-                              );
-                            }))),
+                              ));
+                        }),
+                  ),
+                ),
                 Padding(
                   padding: const EdgeInsets.all(18.0),
-                  child: Text(
+                  child: TranslatedText(
+                    langCode!,
                     head2!,
-                    style: TextStyle(
+                    TextStyle(
                         fontFamily: 'SemiBold', fontSize: 26, color: secondary),
                   ),
                 ),
-                Expanded(
-                  child: ListView.builder(
-                      physics: BouncingScrollPhysics(),
-                      itemCount: consultant.length,
-                      itemBuilder: (ctx, i) {
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 18.0, vertical: 4),
-                          child: Consultants(
-                            langCode: widget.langCode,
-                            speciality: consultant[i]['speciality'],
-                            title: consultant[i]['title'],
-                            url: consultant[i]['url'],
-                            education: consultant[i]['education'],
-                            experience: consultant[i]['experience'],
-                            contact: consultant[i]['contact'],
+                StreamBuilder<QuerySnapshot>(
+                  stream: FirebaseFirestore.instance
+                      .collection("Consultant")
+                      .where('city', isEqualTo: city)
+                      .snapshots(),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<QuerySnapshot> snapshot) {
+                    if (!snapshot.hasData) return const SizedBox.shrink();
+                    if (snapshot.data!.docs.length == 0) {
+                      return Padding(
+                        padding: const EdgeInsets.all(18.0),
+                        child: Container(
+                          height: getHeight(context) / 3.3,
+                          width: getWidth(context),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              TranslatedText(
+                                langCode!,
+                                'No consultants near your area to display',
+                                TextStyle(
+                                    fontFamily: 'Medium',
+                                    fontSize: 20,
+                                    color: Colors.black.withOpacity(0.5)),
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                            ],
                           ),
-                        );
-                      }),
+                        ),
+                      );
+                    }
+
+                    return Expanded(
+                      child: ListView.builder(
+                          physics: BouncingScrollPhysics(),
+                          itemCount: snapshot.data!.docs.length,
+                          itemBuilder: (ctx, i) {
+                            Map<String, dynamic> map = snapshot.data!.docs[i]
+                                .data() as Map<String, dynamic>;
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 18.0, vertical: 4),
+                              child: Consultants(
+                                langCode: widget.langCode,
+                                speciality: map['speciality'],
+                                title: map['name'],
+                                url: map['url'],
+                                education: map['education'],
+                                experience: map['experience'],
+                                contact: map['phone'],
+                              ),
+                            );
+                          }),
+                    );
+                  },
                 ),
               ]));
   }

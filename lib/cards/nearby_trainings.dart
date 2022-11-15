@@ -49,9 +49,10 @@ class _NearbyTrainingsState extends State<NearbyTrainings> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
+                      TranslatedText(
+                        langCode!,
                         widget.title!,
-                        style: TextStyle(
+                        TextStyle(
                             fontFamily: 'SemiBold',
                             color: secondary,
                             fontSize: 20),
@@ -63,7 +64,7 @@ class _NearbyTrainingsState extends State<NearbyTrainings> {
                             border: Border.all(color: Colors.grey.shade400)),
                         child: Padding(
                           padding: const EdgeInsets.all(3.0),
-                          child: Text(
+                          child: TranslatedText(
                             '${widget.start} to ${widget.end} ${widget.time}',
                             style: TextStyle(
                                 fontFamily: 'Regular',
@@ -72,9 +73,10 @@ class _NearbyTrainingsState extends State<NearbyTrainings> {
                           ),
                         ),
                       )*/
-                      Text(
+                      TranslatedText(
+                        langCode!,
                         '${widget.address}',
-                        style: TextStyle(
+                        TextStyle(
                             fontFamily: 'Regular',
                             fontSize: 14,
                             color: secondary),
@@ -96,9 +98,10 @@ class _NearbyTrainingsState extends State<NearbyTrainings> {
               child: Center(
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text(
+                  child: TranslatedText(
+                    langCode!,
                     '${widget.start}-${widget.end} ${widget.time}',
-                    style: TextStyle(fontFamily: 'SemiBold', color: secondary),
+                    TextStyle(fontFamily: 'SemiBold', color: secondary),
                   ),
                 ),
               ),

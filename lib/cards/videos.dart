@@ -60,9 +60,10 @@ class _VideosState extends State<Videos> {
               height: 8,
             ),
             Container(
-              child: Text(
+              child: TranslatedText(
+                langCode!,
                 widget.title!,
-                style: TextStyle(
+                TextStyle(
                     fontFamily: 'SemiBold', fontSize: 20, color: secondary),
               ),
             ),
@@ -72,9 +73,10 @@ class _VideosState extends State<Videos> {
             Row(
               children: [
                 Container(
-                  child: Text(
+                  child: TranslatedText(
+                    langCode!,
                     widget.creator!,
-                    style: TextStyle(
+                    TextStyle(
                         fontFamily: 'Medium', fontSize: 18, color: secondary),
                   ),
                 ),
@@ -92,9 +94,10 @@ class _VideosState extends State<Videos> {
                   width: 10,
                 ),
                 Container(
-                  child: Text(
+                  child: TranslatedText(
+                    langCode!,
                     widget.source!,
-                    style: TextStyle(
+                    TextStyle(
                         fontFamily: 'MediumItalic',
                         fontSize: 15,
                         color: secondary),

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:krushak/data/data.dart';
@@ -43,16 +44,17 @@ class _ProductState extends State<Product> {
               ),
               Container(
                   height: 140,
-                  child: Image.asset(
+                  child: Image.network(
                     widget.product!['url'],
                     fit: BoxFit.cover,
                   )),
               SizedBox(
                 height: 13,
               ),
-              Text(
+              TranslatedText(
+                langCode!,
                 widget.product!['name'],
-                style: TextStyle(
+                TextStyle(
                     fontFamily: 'SemiBold', fontSize: 16, color: secondary),
               ),
               Row(
@@ -64,9 +66,10 @@ class _ProductState extends State<Product> {
                         border: Border.all(color: Colors.grey.shade500)),
                     child: Padding(
                       padding: const EdgeInsets.all(4.0),
-                      child: Text(
-                        widget.product!['quantity'],
-                        style: TextStyle(
+                      child: TranslatedText(
+                        langCode!,
+                        '${widget.product!['quantity']} kg',
+                        TextStyle(
                             fontFamily: 'Regular',
                             fontSize: 14,
                             color: secondary),
@@ -83,9 +86,10 @@ class _ProductState extends State<Product> {
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Text(
+                      child: TranslatedText(
+                        langCode!,
                         'Rs. ${widget.product!['price']}',
-                        style: TextStyle(
+                        TextStyle(
                             fontFamily: 'SemiBold',
                             fontSize: 14,
                             color: secondary),
@@ -95,9 +99,10 @@ class _ProductState extends State<Product> {
                   SizedBox(
                     width: 6,
                   ),
-                  Text(
+                  TranslatedText(
+                    langCode!,
                     'Rs. ${widget.product!['mrp']}',
-                    style: TextStyle(
+                    TextStyle(
                         decoration: TextDecoration.lineThrough,
                         fontFamily: 'SemiBold',
                         fontSize: 14,
@@ -108,11 +113,29 @@ class _ProductState extends State<Product> {
               SizedBox(
                 height: 6,
               ),
-              Text(
+              StreamBuilder<DocumentSnapshot>(
+                stream: FirebaseFirestore.instance
+                    .collection("Seller")
+                    .doc(widget.product!['by'])
+                    .snapshots(),
+                builder: (BuildContext context,
+                    AsyncSnapshot<DocumentSnapshot> snapshot) {
+                  if (!snapshot.hasData) return const SizedBox.shrink();
+                  Map<String, dynamic> map =
+                      snapshot.data!.data() as Map<String, dynamic>;
+                  return TranslatedText(
+                    langCode!,
+                    map['address'],
+                    TextStyle(
+                        fontFamily: 'Regular', fontSize: 14, color: secondary),
+                  );
+                },
+              ),
+              /*TranslatedText(
                 widget.product!['seller'],
                 style: TextStyle(
                     fontFamily: 'Regular', fontSize: 14, color: secondary),
-              ),
+              ),*/
             ],
           ),
         ),

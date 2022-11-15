@@ -9,7 +9,7 @@ class Consultants extends StatefulWidget {
   final String? experience;
   final String? url;
   final String? speciality;
-  final int? contact;
+  final String? contact;
   final String? langCode;
   const Consultants({
     required this.langCode,
@@ -65,11 +65,15 @@ class _ConsultantState extends State<Consultants> {
             children: [
               Row(
                 children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(80),
-                    child: Image.asset(
-                      widget.url!,
-                      fit: BoxFit.cover,
+                  Container(
+                    height: 70,
+                    width: 70,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(80),
+                      child: Image.network(
+                        widget.url!,
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                   SizedBox(
@@ -80,9 +84,10 @@ class _ConsultantState extends State<Consultants> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
+                        TranslatedText(
+                          langCode!,
                           widget.title!,
-                          style: TextStyle(
+                          TextStyle(
                               fontFamily: 'SemiBold',
                               color: secondary,
                               fontSize: 20),
@@ -92,16 +97,18 @@ class _ConsultantState extends State<Consultants> {
                         ),
                         Row(
                           children: [
-                            Text(
+                            TranslatedText(
+                              langCode!,
                               '${widget.speciality},   ',
-                              style: TextStyle(
+                              TextStyle(
                                   fontFamily: 'MediumItalic',
                                   fontSize: 16,
                                   color: secondary),
                             ),
-                            Text(
+                            TranslatedText(
+                              langCode!,
                               '${widget.education}',
-                              style: TextStyle(
+                              TextStyle(
                                   fontFamily: 'Medium',
                                   fontSize: 16,
                                   color: secondary),
@@ -123,16 +130,18 @@ class _ConsultantState extends State<Consultants> {
                                 padding: const EdgeInsets.all(8.0),
                                 child: Row(
                                   children: [
-                                    Text(
+                                    TranslatedText(
+                                      langCode!,
                                       'Experience:  ',
-                                      style: TextStyle(
+                                      TextStyle(
                                           fontFamily: 'SemiBold',
                                           fontSize: 14,
                                           color: secondary),
                                     ),
-                                    Text(
-                                      '${widget.experience}',
-                                      style: TextStyle(
+                                    TranslatedText(
+                                      langCode!,
+                                      '${widget.experience} Years',
+                                      TextStyle(
                                           fontFamily: 'Regular',
                                           fontSize: 14,
                                           color: secondary),
@@ -151,9 +160,10 @@ class _ConsultantState extends State<Consultants> {
                               ),
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Text(
+                                child: TranslatedText(
+                                  langCode!,
                                   'Contact >>',
-                                  style: TextStyle(
+                                  TextStyle(
                                       fontFamily: 'SemiBold',
                                       fontSize: 14,
                                       color: secondary),

@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:krushak/add/nearby_trainings_add.dart';
 import 'package:krushak/cards/nearby_trainings.dart';
 import 'package:krushak/globals.dart';
 import 'package:page_transition/page_transition.dart';
@@ -20,10 +19,10 @@ class _NearbyTrainingsSeeMoreState extends State<NearbyTrainingsSeeMore> {
       appBar: AppBar(
         title: Row(
           children: [
-            Text(
+            TranslatedText(
+              langCode!,
               'Nearby Trainings',
-              style: TextStyle(
-                  fontFamily: 'SemiBold', fontSize: 20, color: secondary),
+              TextStyle(fontFamily: 'SemiBold', fontSize: 20, color: secondary),
             ),
             SizedBox(
               width: 10,
@@ -44,9 +43,10 @@ class _NearbyTrainingsSeeMoreState extends State<NearbyTrainingsSeeMore> {
                     ),
                     city == null
                         ? Container()
-                        : Text(
+                        : TranslatedText(
+                            langCode!,
                             city!,
-                            style: TextStyle(
+                            TextStyle(
                                 fontFamily: 'Medium',
                                 color: Colors.black.withOpacity(0.4),
                                 fontSize: 16),
@@ -56,7 +56,7 @@ class _NearbyTrainingsSeeMoreState extends State<NearbyTrainingsSeeMore> {
               ),
             ),
             SizedBox(width: 20),
-            InkWell(
+            /*InkWell(
               onTap: () {
                 Navigator.push(
                   context,
@@ -81,7 +81,7 @@ class _NearbyTrainingsSeeMoreState extends State<NearbyTrainingsSeeMore> {
                         size: 16,
                         color: Colors.black.withOpacity(0.4),
                       ),
-                      /*Text(
+                      /*TranslatedText(
                         'New',
                         style: TextStyle(
                             fontFamily: 'Medium',
@@ -92,7 +92,7 @@ class _NearbyTrainingsSeeMoreState extends State<NearbyTrainingsSeeMore> {
                   ),
                 ),
               ),
-            ),
+            ),*/
           ],
         ),
         leading: InkWell(
@@ -110,7 +110,10 @@ class _NearbyTrainingsSeeMoreState extends State<NearbyTrainingsSeeMore> {
         children: [
           Expanded(
               child: StreamBuilder<QuerySnapshot>(
-            stream: FirebaseFirestore.instance.collection("Nearby").snapshots(),
+            stream: FirebaseFirestore.instance
+                .collection("Trainings")
+                .where('city', isEqualTo: city)
+                .snapshots(),
             builder:
                 (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
               if (!snapshot.hasData) return const SizedBox.shrink();
