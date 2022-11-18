@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
 import 'package:translator/translator.dart';
 import 'package:weather/weather.dart';
@@ -56,8 +58,27 @@ List<String> months = [
 
 GoogleTranslator translator = GoogleTranslator();
 Future<String> translate(String translateText, String langCode) async {
+  if (translateText == 'kg') {
+    return 'kg';
+  }
   var result = await translator.translate(translateText, to: langCode);
   return result.toString();
+}
+
+Future<String> fetchLocation(BuildContext context) async {
+  while (city == '') {
+    try {
+      LocationPermission permission = await Geolocator.requestPermission();
+      var position = await Geolocator.getCurrentPosition(
+              desiredAccuracy: LocationAccuracy.best)
+          .timeout(Duration(seconds: 5));
+      List<Placemark> placemarks = await placemarkFromCoordinates(
+        position.latitude,
+        position.longitude,
+      );
+    } catch (e) {}
+  }
+  return city!;
 }
 
 Widget TranslatedText(String langCode, String text, TextStyle style) {
@@ -76,6 +97,23 @@ Widget TranslatedText(String langCode, String text, TextStyle style) {
                 snapshot.data.toString(),
                 //overflow: TextOverflow.ellipsis,
                 style: style,
+              );
+            } else {
+              return Text(" ");
+            }
+          }));
+}
+
+Widget LocationText(String langCode, String text, TextStyle style) {
+  return Container(
+      child: FutureBuilder(
+          future: translate(text, langCode),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              return TranslatedText(
+                langCode,
+                snapshot.data.toString(),
+                style,
               );
             } else {
               return Text(" ");

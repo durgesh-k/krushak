@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
@@ -9,7 +10,10 @@ import 'package:krushak/main_screens/agri_info.dart';
 import 'package:krushak/main_screens/home_screen.dart';
 import 'package:krushak/main_screens/market.dart';
 import 'package:krushak/main_screens/schemes.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:weather/weather.dart';
+
+import 'market/search.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -49,12 +53,28 @@ class _HomeState extends State<Home> {
   }*/
 
   void getLocation() async {
-    LocationPermission permission = await Geolocator.requestPermission();
+    /*LocationPermission permission = await Geolocator.requestPermission();
     var position = await Geolocator.getCurrentPosition(
             desiredAccuracy: LocationAccuracy.best)
-        .timeout(Duration(seconds: 5));
+        .timeout(Duration(seconds: 5));*/
 
-    try {
+    while (city == '') {
+      try {
+        LocationPermission permission = await Geolocator.requestPermission();
+        var position = await Geolocator.getCurrentPosition(
+                desiredAccuracy: LocationAccuracy.best)
+            .timeout(Duration(seconds: 15));
+        List<Placemark> placemarks = await placemarkFromCoordinates(
+          position.latitude,
+          position.longitude,
+        );
+        setState(() {
+          city = placemarks[0].locality;
+        });
+      } catch (e) {}
+    }
+
+    /*try {
       List<Placemark> placemarks = await placemarkFromCoordinates(
         position.latitude,
         position.longitude,
@@ -70,7 +90,7 @@ class _HomeState extends State<Home> {
       print('lat--${position.latitude}');
       print('lon--${position.longitude}');
       //getWeather(lat!, lon!);
-    } catch (err) {}
+    } catch (err) {}*/
   }
 
   @override
@@ -142,6 +162,23 @@ class _HomeState extends State<Home> {
                 ),
               ],
             ),
+            _selectedIndex == 1
+                ? IconButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        PageTransition(
+                            duration: Duration(milliseconds: 400),
+                            curve: Curves.bounceInOut,
+                            type: PageTransitionType.rightToLeft,
+                            child: MarketSearch()),
+                      );
+                    },
+                    icon: Icon(
+                      Icons.search,
+                      color: Colors.black,
+                    ))
+                : Container(),
             Container(
               decoration: BoxDecoration(
                   border: Border.all(color: primary!, width: 2),
@@ -216,7 +253,7 @@ class _HomeState extends State<Home> {
                   ],
                 ),
               ),
-            ),
+            )
           ],
         ),
       ),

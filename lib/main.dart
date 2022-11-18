@@ -28,7 +28,6 @@ Future<void> main() async {
       },
     );
   }*/
-
   runApp(const MyApp());
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
@@ -82,7 +81,6 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
 
 /*
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -230,3 +228,129 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 */
+/*
+import 'package:flutter/material.dart';
+import 'package:krushak/data/data.dart';
+
+void main() => runApp(MaterialApp(
+    theme: ThemeData(
+      accentColor: Colors.green,
+      scaffoldBackgroundColor: Colors.green[100],
+      primaryColor: Colors.green,
+    ),
+    home: MyApp()));
+
+class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  String result1 = 'Result 1';
+  String result2 = 'Result 2';
+  String result3 = 'Result 3';
+
+  bool isLoading = false;
+
+  void extractData() async {
+    final response =
+        await http.Client().get(Uri.parse('https://www.msamb.com/Home/Index'));
+
+    print('resp--${response.statusCode}');
+
+    if (response.statusCode == 200) {
+      var document = parser.parse(response.body);
+      try {
+        var elements = document
+            .getElementsByClassName('table')[0]
+            .getElementsByTagName('tr');
+        List l = [];
+        print('1');
+        print(elements.length);
+        for (int i = 1; i < elements.length; i++) {
+          var responseString1 = elements[i].children[0].text;
+          var responseString2 = elements[i].children[1].text;
+          var responseString3 = elements[i].children[2].text;
+          var responseString4 = elements[i].children[3].text;
+          l.add(responseString1);
+          print('scraped--$responseString1');
+          print('scraped2--$responseString2');
+          print('scraped3--$responseString3');
+          print('scraped3--$responseString4');
+          cropp.add({
+            'url': 'assets/image 32.png',
+            'title': responseString1,
+            'quantity': '$responseString2 quintal',
+            'price': responseString4,
+          });
+        }
+        setState(() {});
+      } catch (e) {
+        print('1e');
+      }
+    } else {
+      print('2e');
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('GeeksForGeeks')),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Center(
+            child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            isLoading
+                ? CircularProgressIndicator()
+                : Column(
+                    children: [
+                      Text(result1,
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold)),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.05,
+                      ),
+                      Text(result2,
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold)),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.05,
+                      ),
+                      Text(result3,
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold)),
+                    ],
+                  ),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.08),
+            MaterialButton(
+              onPressed: () async {
+                // Setting isLoading true to show the loader
+                setState(() {
+                  isLoading = true;
+                });
+
+                final response = await extractData();
+                setState(() {
+                  result1 = response[0];
+                  result2 = response[1];
+                  result3 = response[2];
+                  isLoading = false;
+                });
+              },
+              child: Text(
+                'Scrap Data',
+                style: TextStyle(color: Colors.white),
+              ),
+              color: Colors.green,
+            )
+          ],
+        )),
+      ),
+    );
+  }
+}*/

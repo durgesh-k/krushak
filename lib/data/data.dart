@@ -195,7 +195,7 @@ List<Map<String, dynamic>> schemes = [
     ]
   },
 ];
-
+/*
 List<Map<String, dynamic>> cropp = [
   {
     'url': 'assets/image 32.png',
@@ -209,7 +209,8 @@ List<Map<String, dynamic>> cropp = [
     'quantity': '76 quintal',
     'price': '4500',
   },
-];
+];*/
+List<Map<String, dynamic>> cropp = [];
 
 List<Map<String, dynamic>> consultant = [
   {

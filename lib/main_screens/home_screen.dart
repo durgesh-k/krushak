@@ -21,6 +21,8 @@ import 'package:page_transition/page_transition.dart';
 import 'package:translator/translator.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:weather/weather.dart';
+import 'package:html/parser.dart' as parser;
+import 'package:http/http.dart' as http;
 
 class HomeScreen extends StatefulWidget {
   final String? langCode;
@@ -49,6 +51,47 @@ class _HomeScreenState extends State<HomeScreen> {
   String head2 = 'Crop Prices';
   String head3 = 'News';
 
+  void extractData() async {
+    final response =
+        await http.Client().get(Uri.parse('https://www.msamb.com/Home/Index'));
+
+    print('resp--${response.statusCode}');
+
+    if (response.statusCode == 200) {
+      var document = parser.parse(response.body);
+      try {
+        var elements = document
+            .getElementsByClassName('table')[0]
+            .getElementsByTagName('tr');
+        List l = [];
+        print('1');
+        print(elements.length);
+        for (int i = 1; i < elements.length; i++) {
+          var responseString1 = elements[i].children[0].text;
+          var responseString2 = elements[i].children[1].text;
+          var responseString3 = elements[i].children[2].text;
+          var responseString4 = elements[i].children[3].text;
+          l.add(responseString1);
+          print('scraped--$responseString1');
+          print('scraped2--$responseString2');
+          print('scraped3--$responseString3');
+          print('scraped3--$responseString4');
+          cropp.add({
+            'url': 'assets/image 32.png',
+            'title': responseString1,
+            'quantity': '$responseString2 quintal',
+            'price': responseString4,
+          });
+        }
+        setState(() {});
+      } catch (e) {
+        print('1e');
+      }
+    } else {
+      print('2e');
+    }
+  }
+
   void getLocation() async {
     LocationPermission permission = await Geolocator.requestPermission();
     var position = await Geolocator.getCurrentPosition(
@@ -67,29 +110,11 @@ class _HomeScreenState extends State<HomeScreen> {
     } catch (err) {}
   }
 
-  void translate() async {
-    setState(() {
-      screen_load = true;
-    });
-    final translator = GoogleTranslator();
-
-    head1 =
-        (await translator.translate(head1, to: widget.langCode!)).toString();
-    head2 =
-        (await translator.translate(head2, to: widget.langCode!)).toString();
-    head3 =
-        (await translator.translate(head3, to: widget.langCode!)).toString();
-
-    setState(() {
-      screen_load = false;
-    });
-  }
-
   @override
   void initState() {
     super.initState();
+    extractData();
     getLocation();
-    translate();
   }
 
   @override
@@ -331,7 +356,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   height: 20,
                 ),
                 Container(
-                  height: getHeight(context) * 0.25,
+                  height: getHeight(context) * 0.30,
                   child: Expanded(
                     child: ListView.builder(
                         physics: BouncingScrollPhysics(),

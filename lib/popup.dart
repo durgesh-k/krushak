@@ -82,9 +82,7 @@ class CustomRectTween extends RectTween {
 class NearbyPopup extends StatefulWidget {
   final String? hero;
   final Map<String, dynamic>? nearby;
-  final String? langCode;
-  const NearbyPopup({Key? key, this.hero, this.nearby, this.langCode})
-      : super(key: key);
+  const NearbyPopup({Key? key, this.hero, this.nearby}) : super(key: key);
 
   @override
   State<NearbyPopup> createState() => _NearbyPopupState();
@@ -153,7 +151,7 @@ class _NearbyPopupState extends State<NearbyPopup> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 TranslatedText(
-                                  widget.langCode!,
+                                  langCode!,
                                   widget.nearby!['title'],
                                   TextStyle(
                                       fontFamily: 'SemiBold',
@@ -169,7 +167,7 @@ class _NearbyPopupState extends State<NearbyPopup> {
                         height: 10,
                       ),
                       TranslatedText(
-                        widget.langCode!,
+                        langCode!,
                         '${widget.nearby!['address']}',
                         TextStyle(
                             fontFamily: 'Regular',
@@ -190,7 +188,7 @@ class _NearbyPopupState extends State<NearbyPopup> {
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: TranslatedText(
-                              widget.langCode!,
+                              langCode!,
                               '${widget.nearby!['start']}-${widget.nearby!['end']}',
                               TextStyle(
                                   fontFamily: 'SemiBold',
@@ -214,7 +212,7 @@ class _NearbyPopupState extends State<NearbyPopup> {
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: TranslatedText(
-                              widget.langCode!,
+                              langCode!,
                               '${widget.nearby!['time']}',
                               TextStyle(
                                   fontSize: 24,
@@ -267,7 +265,7 @@ class _NearbyPopupState extends State<NearbyPopup> {
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: TranslatedText(
-                                widget.langCode!,
+                                langCode!,
                                 'Directions',
                                 TextStyle(
                                     fontFamily: 'SemiBold',

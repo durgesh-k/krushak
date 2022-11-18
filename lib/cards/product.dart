@@ -66,10 +66,9 @@ class _ProductState extends State<Product> {
                         border: Border.all(color: Colors.grey.shade500)),
                     child: Padding(
                       padding: const EdgeInsets.all(4.0),
-                      child: TranslatedText(
-                        langCode!,
+                      child: Text(
                         '${widget.product!['quantity']} kg',
-                        TextStyle(
+                        style: TextStyle(
                             fontFamily: 'Regular',
                             fontSize: 14,
                             color: secondary),
@@ -86,10 +85,9 @@ class _ProductState extends State<Product> {
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: TranslatedText(
-                        langCode!,
-                        'Rs. ${widget.product!['price']}',
-                        TextStyle(
+                      child: Text(
+                        'Rs ${widget.product!['price']}',
+                        style: TextStyle(
                             fontFamily: 'SemiBold',
                             fontSize: 14,
                             color: secondary),
@@ -99,10 +97,9 @@ class _ProductState extends State<Product> {
                   SizedBox(
                     width: 6,
                   ),
-                  TranslatedText(
-                    langCode!,
-                    'Rs. ${widget.product!['mrp']}',
-                    TextStyle(
+                  Text(
+                    'Rs ${widget.product!['mrp']}',
+                    style: TextStyle(
                         decoration: TextDecoration.lineThrough,
                         fontFamily: 'SemiBold',
                         fontSize: 14,

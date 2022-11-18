@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:krushak/auth/auth.dart';
 import 'package:krushak/cards/product.dart';
 import 'package:krushak/data/data.dart';
 import 'package:krushak/globals.dart';
@@ -6,7 +7,9 @@ import 'package:krushak/market/equipments.dart';
 import 'package:krushak/market/fertilizers.dart';
 import 'package:krushak/market/machinery.dart';
 import 'package:krushak/market/others.dart';
+import 'package:krushak/market/search.dart';
 import 'package:krushak/market/seeds.dart';
+import 'package:page_transition/page_transition.dart';
 
 class Market extends StatefulWidget {
   final String? langCode;
@@ -41,53 +44,65 @@ class _MarketState extends State<Market> with SingleTickerProviderStateMixin {
           SizedBox(
             height: 10,
           ),
-          Container(
-            height: 50,
-            width: getWidth(context),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(40),
-                color: Colors.grey.shade100),
-            child: TextField(
-              controller: searchValue,
-              style: TextStyle(fontFamily: 'Regular', color: secondary),
-              onChanged: (value) async {
-                if (value.length != 0) {
-                  setState(() {
-                    closeOpacity = 1.0;
-                  });
-                } else {
-                  setState(() {
-                    closeOpacity = 0.0;
-                  });
-                }
-              },
-              decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Colors.grey.shade100,
-                  contentPadding: EdgeInsets.all(0),
-                  suffixIcon: InkWell(
-                    onTap: () => searchValue!.clear(),
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: AnimatedOpacity(
-                          opacity: closeOpacity!,
-                          duration: Duration(milliseconds: 400),
-                          child: Icon(Icons.close)),
+          /*InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                PageTransition(
+                    duration: Duration(milliseconds: 400),
+                    curve: Curves.bounceInOut,
+                    type: PageTransitionType.rightToLeft,
+                    child: MarketSearch()),
+              );
+            },
+            child: Container(
+              height: 50,
+              width: getWidth(context),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(40),
+                  color: Colors.grey.shade100),
+              child: TextField(
+                controller: searchValue,
+                style: TextStyle(fontFamily: 'Regular', color: secondary),
+                onChanged: (value) async {
+                  if (value.length != 0) {
+                    setState(() {
+                      closeOpacity = 1.0;
+                    });
+                  } else {
+                    setState(() {
+                      closeOpacity = 0.0;
+                    });
+                  }
+                },
+                decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Colors.grey.shade100,
+                    contentPadding: EdgeInsets.all(0),
+                    suffixIcon: InkWell(
+                      onTap: () => searchValue!.clear(),
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: AnimatedOpacity(
+                            opacity: closeOpacity!,
+                            duration: Duration(milliseconds: 400),
+                            child: Icon(Icons.close)),
+                      ),
                     ),
-                  ),
-                  prefixIcon: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Icon(Icons.search)),
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(50),
-                      borderSide: BorderSide.none),
-                  hintStyle: TextStyle(
-                      fontFamily: 'Medium',
-                      fontSize: 18,
-                      color: Colors.grey.shade400),
-                  hintText: "Search"),
+                    prefixIcon: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Icon(Icons.search)),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(50),
+                        borderSide: BorderSide.none),
+                    hintStyle: TextStyle(
+                        fontFamily: 'Medium',
+                        fontSize: 18,
+                        color: Colors.grey.shade400),
+                    hintText: "Search"),
+              ),
             ),
-          ),
+          ),*/
           SizedBox(
             height: 0,
           ),

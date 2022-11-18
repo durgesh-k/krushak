@@ -48,7 +48,7 @@ class _CropPricesState extends State<CropPrices> {
               color: primary,
             )))
         : Container(
-            width: getWidth(context) * 0.7,
+            //width: getWidth(context) * 0.6,
             height: 200,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
@@ -59,23 +59,23 @@ class _CropPricesState extends State<CropPrices> {
                 children: [
                   Row(
                     children: [
-                      ClipRRect(
+                      /*ClipRRect(
                         borderRadius: BorderRadius.circular(16),
                         child: Image.asset(
                           widget.url!,
                           fit: BoxFit.cover,
                         ),
-                      ),
+                      ),*/
                       SizedBox(
                         width: 16,
                       ),
                       SizedBox(
-                        width: getWidth(context) * 0.4,
+                        //width: getWidth(context) * 0.5,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             TranslatedText(
-                              widget.langCode!,
+                              langCode!,
                               widget.title!,
                               TextStyle(
                                   fontFamily: 'SemiBold',
@@ -123,6 +123,9 @@ class _CropPricesState extends State<CropPrices> {
                             ),
                           ],
                         ),
+                      ),
+                      SizedBox(
+                        width: 16,
                       ),
                     ],
                   ),
